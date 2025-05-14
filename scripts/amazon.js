@@ -1,5 +1,6 @@
 import { cart } from '../data/cart.js'
 import { products } from '../data/products.js'
+import { addToCart } from '../data/cart.js';
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -55,26 +56,6 @@ products.forEach((product) => {
 `;
 
 })
-
-function addToCart(productId) {
-    let matchingItem;
-    cart.forEach((item) => {
-        if (productId === item.productId) {
-            matchingItem = item;
-        }
-    });
-    const selectedQuantity = document.querySelector(`.js-select-value-${productId}`)
-    const selectedValue = +selectedQuantity.value;
-    if (matchingItem) {
-        matchingItem.quantity += selectedValue;
-    } else {
-        cart.push({
-            productId: productId,
-            quantity: selectedValue,
-        });
-    }
-    console.log(cart)
-}
 
 function updateCartQuantity() {
 
