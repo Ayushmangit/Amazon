@@ -656,5 +656,36 @@ const products = [
       "apparel",
       "mens"
     ]
-  }
+  }, {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "gods traveller Backpack",
+    rating: {
+      stars: 4.5,
+      count: 1157
+    },
+    priceRupees: 3005,
+    keywords: [
+      "backpack",
+      "college",
+      "storage",
+      "bag"
+    ]
+  },
+  {
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "bhagwaan chata",
+    rating: {
+      stars: 5,
+      count: 111157
+    },
+    priceRupees: 305,
+    keywords: [
+      "Umbrella",
+      "rain",
+      "shade",
+      "big umbrella"
+    ]
+  },
 ];

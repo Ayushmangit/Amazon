@@ -2,7 +2,7 @@
 let productsHTML = '';
 
 products.forEach((product) => {
-	productsHTML += `
+        productsHTML += `
            
 		<div class="product-container">
                 <div class="product-image-container">
@@ -25,7 +25,7 @@ products.forEach((product) => {
                 </div>
 
                 <div class="product-quantity-container">
-                    <select>
+                    <select class='js-select-value-${product.id}'>
                         <option selected value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -41,7 +41,7 @@ products.forEach((product) => {
 
                 <div class="product-spacer"></div>
 
-                <div class="added-to-cart">
+                <div class="added-to-cart js-added-to-cart-${product.id}">
                     <img src="images/icons/checkmark.png">
                     Added
                 </div>
@@ -59,31 +59,51 @@ products.forEach((product) => {
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-	button.addEventListener('click', () => {
-		const productId = button.dataset.productId;
-		let matchingItem;
-		cart.forEach((item) => {
-			if (productId === item.productId) {
-				matchingItem = item;
-			}
-		});
-		if (matchingItem) {
-			matchingItem.quantity++;
-		} else {
-			cart.push({
-				productId: productId,
-				quantity: 1,
-			});
-		}
+        button.addEventListener('click', () => {
 
-		let cartQuantity = 0;
-		cart.forEach((item) => {
-			cartQuantity += item.quantity;
-		})
-		const cartContents = document.querySelector('.js-cart-quantity');
-		cartContents.textContent = cartQuantity;
+                const productId = button.dataset.productId;
+                let matchingItem;
+                cart.forEach((item) => {
+                        if (productId === item.productId) {
+                                matchingItem = item;
+                        }
+                });
+                const selectedQuantity = document.querySelector(`.js-select-value-${productId}`)
+                const selectedValue = +selectedQuantity.value;
+                if (matchingItem) {
+                        matchingItem.quantity += selectedValue;
+                } else {
+                        cart.push({
+                                productId: productId,
+                                quantity: selectedValue,
+                        });
+                }
 
-	});
+                let cartQuantity = 0;
+                cart.forEach((item) => {
+                        cartQuantity += item.quantity;
+                })
+                const cartContents = document.querySelector('.js-cart-quantity');
+                cartContents.innerHTML = cartQuantity;
+                const addedElm = document.querySelector(`.js-added-to-cart-${productId}`)
+
+
+                if (addedElm.timeoutId) {
+                        clearTimeout(addedElm.timeoutId);
+
+                }
+                addedElm.classList.add('js-added-to-cart')
+                addedElm.timeoutId = setTimeout(() => {
+                        addedElm.classList.remove('js-added-to-cart')
+                }, 2000)
+
+
+
+
+
+
+
+        });
 });
 
 
