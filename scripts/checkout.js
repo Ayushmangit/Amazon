@@ -88,7 +88,6 @@ cart.forEach((cartItem) => {
 
 
 `;
-  console.log(cart)
   orderSummary.innerHTML = cartSummarytHTML;
 })
 
