@@ -1,10 +1,9 @@
 import { cart } from '../data/cart.js'
 import { products } from '../data/products.js'
-import { addToCart } from '../data/cart.js';
 let productsHTML = '';
 
 products.forEach((product) => {
-        productsHTML += `
+    productsHTML += `
            
 		<div class="product-container">
                 <div class="product-image-container">
@@ -57,46 +56,66 @@ products.forEach((product) => {
 
 })
 
+function addToCart(productId) {
+    let matchingItem;
+    cart.forEach((item) => {
+        if (productId === item.productId) {
+            matchingItem = item;
+        }
+    });
+    const selectedQuantity = document.querySelector(`.js-select-value-${productId}`)
+    const selectedValue = +selectedQuantity.value;
+    if (matchingItem) {
+        matchingItem.quantity += selectedValue;
+    } else {
+        cart.push({
+            productId: productId,
+            quantity: selectedValue,
+        });
+    }
+    console.log(cart)
+}
+
 function updateCartQuantity() {
 
-        let cartQuantity = 0;
-        cart.forEach((cartItem) => {
-                cartQuantity += cartItem.quantity;
-        })
-        const cartContents = document.querySelector('.js-cart-quantity');
-        cartContents.innerHTML = cartQuantity;
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+        cartQuantity += item.quantity;
+    })
+    const cartContents = document.querySelector('.js-cart-quantity');
+    cartContents.innerHTML = cartQuantity;
 
 }
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
-        button.addEventListener('click', () => {
+    button.addEventListener('click', () => {
 
-                const productId = button.dataset.productId;
-                addToCart(productId)
-                updateCartQuantity();
-                const addedElm = document.querySelector(`.js-added-to-cart-${productId}`)
-
-
-                if (addedElm.timeoutId) {
-                        clearTimeout(addedElm.timeoutId);
-
-                }
-                addedElm.classList.add('js-added-to-cart')
-                addedElm.timeoutId = setTimeout(() => {
-                        addedElm.classList.remove('js-added-to-cart')
-                }, 2000)
+        const productId = button.dataset.productId;
+        addToCart(productId)
+        updateCartQuantity()
+        const addedElm = document.querySelector(`.js-added-to-cart-${productId}`)
 
 
+        if (addedElm.timeoutId) {
+            clearTimeout(addedElm.timeoutId);
+
+        }
+        addedElm.classList.add('js-added-to-cart')
+        addedElm.timeoutId = setTimeout(() => {
+            addedElm.classList.remove('js-added-to-cart')
+        }, 2000)
 
 
 
 
 
-        });
+
+
+    });
 });
 
 
-
+console.log(cart)
 

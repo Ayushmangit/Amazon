@@ -1,9 +1,10 @@
-import { cart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { cart } from '../data/cart.js';
+import { products } from '../data/products.js';;
 
 const orderSummary = document.querySelector('.js-order-summary')
 let cartSummarytHTML = "";
 cart.forEach((cartItem) => {
+  console.log(cartItem.productId)
   const productId = cartItem.productId;
 
   let matchingProduct;
@@ -88,6 +89,7 @@ cart.forEach((cartItem) => {
 
 
 `;
+
   orderSummary.innerHTML = cartSummarytHTML;
 })
 
