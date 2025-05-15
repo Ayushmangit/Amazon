@@ -3,6 +3,11 @@ import { products } from '../data/products.js'
 import { addToCart } from '../data/cart.js';
 let productsHTML = '';
 
+
+document.addEventListener("DOMContentLoaded", function() {
+    updateCartQuantity()
+});
+
 products.forEach((product) => {
     productsHTML += `
            
