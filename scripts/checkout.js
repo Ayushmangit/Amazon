@@ -97,6 +97,9 @@ document.querySelectorAll(".js-update-quantity-link").forEach((link) => {
   })
 })
 
+
+
+
 function deliveryOptionsHTML(cartItem) {
 
   let html = ''
