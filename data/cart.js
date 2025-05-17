@@ -15,6 +15,16 @@ if (!cart) {
   ]
 
 }
+export function updateCartQuantity() {
+
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  })
+  const cartContents = document.querySelector('.js-cart-quantity');
+  cartContents.innerHTML = cartQuantity;
+
+}
 
 export function removeFromCart(productId) {
   const newCart = []
@@ -23,6 +33,8 @@ export function removeFromCart(productId) {
       newCart.push(item)
     }
   })
+
+  document.querySelector(`.js-cart-item-container-${productId}`).remove();
 
   cart = newCart;
   saveToStorage()
