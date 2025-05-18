@@ -150,7 +150,7 @@ function renderOrderSummary() {
             <input type="radio" ${isChecked ? 'checked' : ''} class="delivery-option-input" name="delivery-option-${cartItem.productId}">
             <div>
               <div class="delivery-option-date">${dateString}</div>
-              <div class="delivery-option-price">₹${priceString}</div>
+              <div class="delivery-option-price">₹${priceString}-Shipping</div>
             </div>
           </div>
 `
