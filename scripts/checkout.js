@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+
+
 const quantityElm = document.querySelector('.js-return-to-home-link');
 const orderSummary = document.querySelector('.js-order-summary');
 let cartQuantity = 0;
 
 let cartSummarytHTML = "";
+
 function calculateCartQuantity() {
   cartQuantity = 0;
   cart.forEach((item) => {
@@ -26,11 +30,23 @@ cart.forEach((cartItem) => {
   const productId = cartItem.productId;
 
   const matchingProduct = products.find(product => product.id === productId);
+  const deliveryOptionID = cartItem.deliveryOptionId;
+
+  let deliveryOption;
+
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionID) {
+      deliveryOption = option;
+    }
+  });
+  const today = dayjs();
+  const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+  const dateString = deliveryDate.format('dddd, MMMM D')
 
   cartSummarytHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
-        Delivery date: Tuesday, June 21
+        Delivery date:${dateString} 
       </div>
 
       <div class="cart-item-details-grid">
